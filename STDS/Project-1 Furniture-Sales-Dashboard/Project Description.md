@@ -23,8 +23,13 @@ Using Excel Pivot Tables, the data was summarized to uncover insights regarding:
 * Monthly performance trends.
 * Geographic distribution of sales.
 
+
+
 **Data Analysis & Pivot Tables:**
 ![Pivot Tables](image%20Dashboard/pivot%20tables.png)
+
+
+
 
 ## 3. Final Interactive Dashboard
 The final dashboard provides a professional layout for easy navigation and decision-making, featuring dynamic filters and KPI cards.
