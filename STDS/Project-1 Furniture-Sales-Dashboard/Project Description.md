@@ -41,3 +41,12 @@ The final dashboard provides a professional layout for easy navigation and decis
 * **Interactive Visualizations:** Dynamic charts for sales and profit trends.
 * **Dynamic Slicers:** Filters for date, product category, and region.
 * **Automated Workflow:** Data processing powered by Power Query.
+
+
+
+## 4. Student Solution
+As part of the technical requirements for this task, the complete practical solution is provided in the following files:
+
+* **Analytical Workbook:** [Furniture_Sales Dashboard.xlsx](./Furniture_Sales%20Dashboard.xlsx) - This file contains the full data model, Power Query transformations, and interactive Pivot Tables.
+* **Raw Dataset:** [Furniture_Sales.xlsx](./Furniture_Sales.xlsx) - The original data used for the analysis.
+* **Visual Documentation:** The screenshots provided in the sections above (Power Query, Pivot Tables, and Dashboard) represent the final output of the solution.
