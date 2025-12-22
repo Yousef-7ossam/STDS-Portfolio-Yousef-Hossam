@@ -15,7 +15,7 @@ To ensure data integrity, the following steps were performed in Power Query:
 * **Feature Engineering:** Added a **Duration** column and a **Month** column for better time-series analysis.
 
 **Power Query Transformation Process:**
-![Power Query Steps](Power%20Query.png)
+![Power Query Steps](image%20Dashboard/Power%20Query.png)
 
 ## 2. Data Analysis (Pivot Tables)
 Using Excel Pivot Tables, the data was summarized to uncover insights regarding:
@@ -24,13 +24,13 @@ Using Excel Pivot Tables, the data was summarized to uncover insights regarding:
 * Geographic distribution of sales.
 
 **Data Analysis & Pivot Tables:**
-![Pivot Tables](pivot%20tables.png)
+![Pivot Tables](image%20Dashboard/pivot%20tables.png)
 
 ## 3. Final Interactive Dashboard
 The final dashboard provides a professional layout for easy navigation and decision-making, featuring dynamic filters and KPI cards.
 
 **Final Dashboard Layout:**
-![Dashboard Overview](Dashboard.png)
+![Dashboard Overview](image%20Dashboard/Dashboard.png)
 
 ## Key Features
 * **Interactive Visualizations:** Dynamic charts for sales and profit trends.
