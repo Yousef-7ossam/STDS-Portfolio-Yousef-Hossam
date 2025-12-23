@@ -39,4 +39,4 @@ Every project folder in this repository contains the three mandatory files requi
 3. **Reflection File (`Reflection.md`):** A mandatory assessment of what was learned, challenges faced, and improvements made [cite: 34-39].
 
 ## 🚀 Final Project
-The **[FinalProject](./LecTask)** directory showcases the capstone project: **GreenStream Energy: Serverless ETL Architecture**. It demonstrates end-to-end data engineering skills, including automated data ingestion, multi-stage transformation logic, and hybrid storage strategies for IoT energy data.
+The **[FinalProject](./FinalProject)** directory showcases the capstone project: **GreenStream Energy: Serverless ETL Architecture**. It demonstrates end-to-end data engineering skills, including automated data ingestion, multi-stage transformation logic, and hybrid storage strategies for IoT energy data.
