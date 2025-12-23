@@ -1,4 +1,4 @@
-# Final Project: GreenStream Energy Serverless ETL Architecture
+# Lec Task: GreenStream Energy Serverless ETL Architecture
 
 ## 1. Project Overview & Business Case
 **GreenStream Energy** is a major utility provider managing millions of **Smart Meters (IoT devices)**. The challenge was to process a massive influx of high-frequency energy readings and convert them into high-quality, actionable data assets.
