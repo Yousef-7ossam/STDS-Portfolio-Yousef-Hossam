@@ -1,38 +1,57 @@
-# Selected Topics in Data Science (STDS) - Portfolio
-**Student Name:** [اكتب اسمك هنا]
-**Course:** Selected Topics in Data Science (STDS)
+# Final Project: GreenStream Energy Serverless ETL Architecture
 
-## 📌 Overview
-[cite_start]This repository serves as a professional portfolio containing all technical tasks, assignments, and the final project completed during the semester[cite: 3, 4]. [cite_start]It is structured to reflect my proficiency in data analysis, visualization, and documentation standards.
+## 1. Project Overview & Business Case
+**GreenStream Energy** is a major utility provider managing millions of **Smart Meters (IoT devices)**. The challenge was to process a massive influx of high-frequency energy readings and convert them into high-quality, actionable data assets.
 
-## 📂 Repository Structure
-The repository is organized according to the course specifications:
-* [cite_start]**[STDS](./STDS):** This directory contains four major data science projects, ranging from Excel analytics to advanced Business Intelligence dashboards[cite: 14].
-* [cite_start]**[FinalProject](./FinalProject):** Dedicated folder for the course final project.
+This project implements a state-of-the-art **Serverless ETL (Extract, Transform, Load) Pipeline**. The architecture is designed to be event-driven, cost-effective, and highly scalable, ensuring that raw energy data is refined for both real-time operational monitoring and long-term analytical research.
 
-## 📊 Completed Projects (STDS Folder)
-[cite_start]Each project folder within the STDS directory includes a task description, the technical solution, and a mandatory reflection[cite: 24, 25]:
+## 2. System Architecture
+The system follows a modern serverless design where compute resources are only utilized when data is present, reducing overhead costs significantly.
 
-1. **[Project-1: Furniture Sales Dashboard](./STDS/Project-1%20Furniture-Sales-Dashboard)**
-   * **Tools:** Excel & Power Query.
-   * **Focus:** Automated data cleaning and interactive sales tracking.
-2. **[Project-2: Adventure Works Dashboard](./STDS/Project-2%20Adventure-Works-Dashboard)**
-   * **Tools:** Power BI & SQL.
-   * **Focus:** Executive-level business metrics and relational data modeling.
-3. **[Project-3: Sales Marketing Dashboard](./STDS/Project-3%20Sales%20Marketing%20Dashboard)**
-   * **Tools:** Power BI.
-   * **Focus:** Integrating marketing ROI with sales performance and targets.
-4. **[Project-4: Academic Stress Dashboard](./STDS/Project-4%20Academic-Stress-Dashboard)**
-   * **Tools:** Tableau.
-   * **Focus:** Correlation analysis of student mental health and academic pressure.
+### The Pipeline Flow:
+1.  **Ingestion Zone:** IoT devices upload raw CSV files to a transient "Landing Zone" in object storage.
+2.  **Event Trigger:** Each upload automatically triggers the **Serverless Orchestrator**, which manages the lifecycle of the data record.
+3.  **Transformation Layers (T1-T3):** Data passes through three distinct serverless workers, each adding a layer of quality and optimization.
+4.  **Dual-Destination Output:** Cleaned data is simultaneously sent to a SQL database (Hot Path) and a Parquet archive (Cold Path).
 
-## 🛠️ Documentation Standards
-To ensure high-quality documentation, every project includes:
-* [cite_start]**TaskDescription.md:** Detailed overview and objectives of the task[cite: 27].
-* [cite_start]**Student Solution:** All source files (.xlsx, .pbix, .twb) and raw datasets (.csv)[cite: 28, 32, 33].
-* [cite_start]**Reflection.md:** A mandatory self-assessment covering learning outcomes, challenges, and improvements[cite: 34, 35].
+## 3. The ETL Transformation Process
+To ensure data integrity, the pipeline executes three critical transformation stages:
 
-## 🚀 Skills Developed
-* **Data Visualization:** Proficiency in Excel, Power BI, and Tableau.
-* **ETL Processes:** Advanced data cleaning using Power Query and SQL.
-* **Professional Communication:** Clear documentation and technical reflection for stakeholders.
+### T1: Standardization & Validation
+* **Unit Conversion:** Automatically detects readings in Watts (W) and converts them to Kilowatts (kW).
+* **Schema Enforcement:** Validates that `MeterID` is an integer and timestamps follow the ISO-8601 standard.
+
+### T2: Data Cleaning & Imputation
+* **Missing Value Handling:** Uses linear interpolation to fill gaps in time-series data, ensuring continuity for forecasting models.
+* **Outlier Detection:** Filters out invalid spikes (e.g., negative values or extreme readings) caused by sensor malfunctions.
+
+### T3: Format Optimization
+* **Columnar Conversion:** Converts the final cleaned data from CSV to **Parquet** format. This drastically reduces storage costs and speeds up complex analytical queries.
+
+## 4. Business Rules & Logic
+The transformation logic is governed by specific business rules designed to refine "Dark Data" into high-value assets:
+
+| Rule Category | Business Logic Applied | Purpose |
+| :--- | :--- | :--- |
+| **Standardization** | `Value = Value / 1000` if Unit is "W". | Ensures all grid data is mathematically consistent. |
+| **Data Quality** | Check for NULL values in `ReadingValue`. | Prevents errors in downstream aggregate functions. |
+| **Feature Engineering** | Calculate peak usage hours from timestamps. | Enables the company to identify high-demand periods. |
+| **Format Conversion** | Compress raw CSV into snappy-parquet. | Optimized for long-term "Cold Data" storage. |
+
+## 5. Storage Strategy: Hot vs. Cold Data
+The pipeline feeds into a hybrid storage model to satisfy different business needs:
+
+* **Hot Data (Structured SQL):** This serving layer powers **Real-Time Dashboards**. It allows the operations team to monitor grid load and identify peak energy periods immediately.
+* **Cold Data (Analytics Archive):** Optimized Parquet files stored in a Data Lake. This is designed for Data Scientists to perform historical analysis over several years without the high cost of traditional databases.
+
+## 6. Resilience & Error Handling
+A critical feature of this architecture is its ability to handle failures without data loss:
+* **Retry Logic:** The Orchestrator automatically retries failed transformation steps up to 3 times.
+* **Dead Letter Queue (DLQ):** Records that consistently fail validation are moved to a **Quarantine Zone**. This allows for manual inspection and debugging without stopping the entire pipeline.
+* **Success Logging:** Every successfully processed file is logged and moved to a "Processed" folder for auditing purposes.
+
+## 7. Tools & Technologies
+* **Serverless Computing:** For T1, T2, and T3 transformation workers.
+* **Cloud Orchestration:** For managing the state, sequence, and retry logic.
+* **Object Storage:** Used for Ingestion, Processed, and Archive zones.
+* **SQL Serving Layer:** For structured queries and business intelligence.
